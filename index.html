@@ -3,264 +3,219 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Life OS</title>
+  <title>豆绘工房 | 拼豆素材设计</title>
+  <meta
+    name="description"
+    content="上传图片，自动生成高精度拼豆色块图、色号统计与打印用网格图。"
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="page-shell">
-    <header class="hero">
-      <div>
-        <p class="eyebrow">PERSONAL DASHBOARD</p>
-        <h1>把每天的记录，整理成可回看的生活系统。</h1>
-        <p class="hero-copy">年度倒计时、每日 kiss 复盘、感悟和图片、时间统计、读书笔记、朋友生日提醒都集中在一个页面里。</p>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+  <main class="site-shell">
+    <section class="hero-card">
+      <div class="hero-copy">
+        <p class="eyebrow">PIXEL BEAD STUDIO</p>
+        <h1>把图片拆成可落地的拼豆色块图。</h1>
+        <p class="intro">
+          上传一张图片，系统会按拼豆色板自动缩放、匹配颜色、生成网格图，并给出每种颜色的用量统计。
+        </p>
+        <div class="hero-metrics">
+          <div>
+            <strong>Lab</strong>
+            <span>感知色差匹配</span>
+          </div>
+          <div>
+            <strong>Dither</strong>
+            <span>误差扩散保细节</span>
+          </div>
+          <div>
+            <strong>Export</strong>
+            <span>导出打印图</span>
+          </div>
+        </div>
       </div>
-      <section class="countdown-card">
-        <p class="card-label">距离 2027 年</p>
-        <div class="countdown-grid">
-          <div><strong id="daysLeft">0</strong><span>天</span></div>
-          <div><strong id="hoursLeft">0</strong><span>小时</span></div>
-          <div><strong id="minutesLeft">0</strong><span>分钟</span></div>
+      <div class="hero-panel">
+        <div class="hero-panel-top">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
         </div>
-        <p id="yearProgressText" class="subtle"></p>
-        <div class="progress-track">
-          <div id="yearProgressBar" class="progress-bar"></div>
+        <div class="hero-grid" aria-hidden="true">
+          <span style="--c:#f4ead8"></span>
+          <span style="--c:#d8b682"></span>
+          <span style="--c:#ab6d4e"></span>
+          <span style="--c:#3d5368"></span>
+          <span style="--c:#e95d4f"></span>
+          <span style="--c:#f3c745"></span>
+          <span style="--c:#78a866"></span>
+          <span style="--c:#3b8ba8"></span>
+          <span style="--c:#f0a5a1"></span>
+          <span style="--c:#2e2e33"></span>
+          <span style="--c:#f9f3ec"></span>
+          <span style="--c:#5e3b2d"></span>
         </div>
-      </section>
-    </header>
+      </div>
+    </section>
 
-    <main class="dashboard">
-      <section class="panel span-2 collapsible-panel" data-panel-id="calendar">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">CALENDAR</p>
-            <h2>每日记录日历</h2>
-          </div>
-          <div class="panel-heading-actions">
-            <p class="subtle">每天的复盘、感悟、时间记录和读书笔记都会挂在日期下</p>
-            <button type="button" class="toggle-button" aria-expanded="true">折叠</button>
-          </div>
+    <section class="workspace">
+      <aside class="controls-card">
+        <div class="section-head">
+          <p class="eyebrow">CONTROL</p>
+          <h2>设计参数</h2>
         </div>
-        <div class="panel-body">
-          <div class="calendar-toolbar">
-            <button type="button" id="prevMonthButton" class="calendar-nav">上个月</button>
-            <div id="calendarMonthLabel" class="calendar-month-label"></div>
-            <button type="button" id="nextMonthButton" class="calendar-nav">下个月</button>
-          </div>
-          <div class="calendar-weekdays">
-            <span>一</span>
-            <span>二</span>
-            <span>三</span>
-            <span>四</span>
-            <span>五</span>
-            <span>六</span>
-            <span>日</span>
-          </div>
-          <div id="calendarGrid" class="calendar-grid"></div>
-          <div class="summary-card calendar-detail-card">
-            <h3 id="selectedDateTitle">日期详情</h3>
-            <div id="selectedDateSummary" class="summary-copy"></div>
-          </div>
-        </div>
-      </section>
 
-      <section class="panel span-2 collapsible-panel" data-panel-id="review">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">DAILY REVIEW</p>
-            <h2>每天 kiss 复盘模板</h2>
-          </div>
-          <div class="panel-heading-actions">
-            <p class="subtle">K = Keep / I = Improve / S = Start / S = Stop</p>
-            <button type="button" class="toggle-button" aria-expanded="true">折叠</button>
-          </div>
-        </div>
-        <div class="panel-body">
-          <form id="reviewForm" class="stack-form">
-            <label>
-              日期
-              <input type="date" id="reviewDate" required>
-            </label>
-            <label>
-              Keep
-              <textarea id="reviewKeep" rows="3" placeholder="今天做得好的部分"></textarea>
-            </label>
-            <label>
-              Improve
-              <textarea id="reviewImprove" rows="3" placeholder="还可以优化的地方"></textarea>
-            </label>
-            <label>
-              Start
-              <textarea id="reviewStart" rows="3" placeholder="准备开始尝试的新动作"></textarea>
-            </label>
-            <label>
-              Stop
-              <textarea id="reviewStop" rows="3" placeholder="准备停止的习惯或做法"></textarea>
-            </label>
-            <button type="submit">保存复盘</button>
-          </form>
-          <div id="reviewList" class="entry-list"></div>
-        </div>
-      </section>
+        <label class="upload-dropzone" for="imageInput">
+          <input id="imageInput" type="file" accept="image/*">
+          <span class="upload-title">上传参考图</span>
+          <span class="upload-copy">支持 JPG、PNG、WebP。图片仅在你的浏览器本地处理。</span>
+        </label>
 
-      <section class="panel collapsible-panel" data-panel-id="reflection">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">MEMORIES</p>
-            <h2>每天感悟和心得</h2>
-          </div>
-          <div class="panel-heading-actions">
-            <p class="subtle">支持上传图片并保存在本地浏览器</p>
-            <button type="button" class="toggle-button" aria-expanded="true">折叠</button>
-          </div>
+        <div class="field-grid">
+          <label>
+            拼豆宽度
+            <input id="beadWidth" type="number" min="12" max="240" value="96">
+          </label>
+          <label>
+            拼豆高度
+            <input id="beadHeight" type="number" min="12" max="240" value="96">
+          </label>
         </div>
-        <div class="panel-body">
-          <form id="reflectionForm" class="stack-form">
-            <label>
-              日期
-              <input type="date" id="reflectionDate" required>
-            </label>
-            <label>
-              标题
-              <input type="text" id="reflectionTitle" placeholder="例如：今天最有价值的一件事">
-            </label>
-            <label>
-              内容
-              <textarea id="reflectionContent" rows="5" placeholder="记录感悟、心得、情绪变化"></textarea>
-            </label>
-            <label>
-              图片
-              <input type="file" id="reflectionImage" accept="image/*">
-            </label>
-            <button type="submit">保存感悟</button>
-          </form>
-          <div id="reflectionList" class="entry-list"></div>
-        </div>
-      </section>
 
-      <section class="panel span-2 collapsible-panel" data-panel-id="time">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">TIME LOG</p>
-            <h2>花费时间统计</h2>
-          </div>
-          <div class="panel-heading-actions">
-            <p class="subtle">手动输入时间后自动汇总，并生成图表与结论</p>
-            <button type="button" class="toggle-button" aria-expanded="true">折叠</button>
-          </div>
+        <div class="field-grid">
+          <label>
+            尺寸模式
+            <select id="dimensionMode">
+              <option value="fit">完整适配</option>
+              <option value="width">固定宽度</option>
+              <option value="height">固定高度</option>
+              <option value="stretch">强制拉伸</option>
+            </select>
+          </label>
+          <label>
+            颜色数量上限
+            <input id="maxColors" type="number" min="6" max="48" value="32">
+          </label>
         </div>
-        <div class="panel-body">
-          <form id="timeForm" class="time-form">
-            <label>
-              日期
-              <input type="date" id="timeDate" required>
-            </label>
-            <label>
-              分类
-              <input type="text" id="timeCategory" placeholder="学习 / 工作 / 运动">
-            </label>
-            <label>
-              任务
-              <input type="text" id="timeTask" placeholder="例如：读《原则》第三章">
-            </label>
-            <label>
-              时长（小时）
-              <input type="number" id="timeHours" min="0" step="0.5" required>
-            </label>
-            <button type="submit">添加记录</button>
-          </form>
-          <div class="stats-grid">
-            <div class="chart-card">
-              <h3>分类柱状图</h3>
-              <canvas id="timeChart" width="640" height="280"></canvas>
+
+        <div class="field-grid">
+          <label>
+            细节增强
+            <select id="detailMode">
+              <option value="balanced">平衡</option>
+              <option value="portrait">人像</option>
+              <option value="contrast">高对比</option>
+              <option value="soft">柔和</option>
+            </select>
+          </label>
+          <label>
+            网格缩放
+            <input id="zoomSize" type="number" min="6" max="28" value="12">
+          </label>
+        </div>
+
+        <label class="toggle-row">
+          <input id="ditherToggle" type="checkbox" checked>
+          <span>启用误差扩散，尽量保留细节层次</span>
+        </label>
+
+        <label class="toggle-row">
+          <input id="labelsToggle" type="checkbox" checked>
+          <span>在放大网格图中标注色号</span>
+        </label>
+
+        <div class="action-row">
+          <button id="generateButton" type="button">生成拼豆图</button>
+          <button id="downloadButton" type="button" class="secondary" disabled>导出 PNG</button>
+        </div>
+
+        <div id="statusCard" class="status-card">
+          <strong>等待图片</strong>
+          <p>上传后会自动读取尺寸，并可随时重新生成。</p>
+        </div>
+      </aside>
+
+      <section class="preview-stack">
+        <div class="preview-grid">
+          <article class="panel-card">
+            <div class="section-head inline">
+              <div>
+                <p class="eyebrow">SOURCE</p>
+                <h2>原图</h2>
+              </div>
+              <p id="sourceMeta" class="subtle">未上传</p>
             </div>
-            <div class="summary-card">
-              <h3>本期总结</h3>
-              <div id="timeSummary" class="summary-copy"></div>
+            <div class="canvas-frame source-frame">
+              <img id="sourcePreview" alt="上传图片预览">
+              <div id="sourcePlaceholder" class="empty-state">等待上传图片</div>
             </div>
-          </div>
-          <div class="stats-grid pie-grid">
-            <div class="chart-card">
-              <h3>今日任务饼图</h3>
-              <div class="pie-layout">
-                <canvas id="todayPieChart" width="320" height="320"></canvas>
-                <div id="todayPieLegend" class="pie-legend"></div>
+          </article>
+
+          <article class="panel-card">
+            <div class="section-head inline">
+              <div>
+                <p class="eyebrow">BEAD MAP</p>
+                <h2>拼豆图</h2>
+              </div>
+              <p id="patternMeta" class="subtle">尚未生成</p>
+            </div>
+            <div class="canvas-frame">
+              <canvas id="patternCanvas" width="960" height="960"></canvas>
+              <div id="patternPlaceholder" class="empty-state">生成后显示色块拼豆图</div>
+            </div>
+          </article>
+        </div>
+
+        <div class="preview-grid lower">
+          <article class="panel-card wide-card">
+            <div class="section-head inline">
+              <div>
+                <p class="eyebrow">INVENTORY</p>
+                <h2>色号与用量</h2>
+              </div>
+              <p id="inventoryMeta" class="subtle">0 色</p>
+            </div>
+            <div id="paletteStats" class="palette-stats"></div>
+          </article>
+
+          <article class="panel-card side-card">
+            <div class="section-head inline">
+              <div>
+                <p class="eyebrow">SUMMARY</p>
+                <h2>制作摘要</h2>
               </div>
             </div>
-            <div class="summary-card">
-              <h3>今日投入</h3>
-              <div id="todayTimeSummary" class="summary-copy"></div>
+            <div id="summaryBoard" class="summary-board">
+              <div>
+                <span>成品尺寸</span>
+                <strong>0 × 0</strong>
+              </div>
+              <div>
+                <span>总豆数</span>
+                <strong>0</strong>
+              </div>
+              <div>
+                <span>主要颜色</span>
+                <strong>无</strong>
+              </div>
+              <div>
+                <span>建议底板</span>
+                <strong>无</strong>
+              </div>
             </div>
-          </div>
-          <div id="timeList" class="entry-list compact"></div>
+            <div id="reviewNotes" class="review-notes">
+              <h3>自检状态</h3>
+              <p>等待生成后执行。</p>
+            </div>
+          </article>
         </div>
       </section>
-
-      <section class="panel collapsible-panel" data-panel-id="book">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">READING</p>
-            <h2>读书笔记</h2>
-          </div>
-          <div class="panel-heading-actions">
-            <button type="button" class="toggle-button" aria-expanded="true">折叠</button>
-          </div>
-        </div>
-        <div class="panel-body">
-          <form id="bookForm" class="stack-form">
-            <label>
-              书名
-              <input type="text" id="bookTitle" required>
-            </label>
-            <label>
-              日期
-              <input type="date" id="bookDate" required>
-            </label>
-            <label>
-              关键摘录 / 想法
-              <textarea id="bookNotes" rows="5" placeholder="记录书中的观点和你的理解"></textarea>
-            </label>
-            <button type="submit">保存笔记</button>
-          </form>
-          <div id="bookList" class="entry-list"></div>
-        </div>
-      </section>
-
-      <section class="panel collapsible-panel" data-panel-id="birthday">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">BIRTHDAYS</p>
-            <h2>朋友生日提醒</h2>
-          </div>
-          <div class="panel-heading-actions">
-            <p class="subtle">按最近生日排序</p>
-            <button type="button" class="toggle-button" aria-expanded="true">折叠</button>
-          </div>
-        </div>
-        <div class="panel-body">
-          <form id="birthdayForm" class="stack-form">
-            <label>
-              名字
-              <input type="text" id="birthdayName" required>
-            </label>
-            <label>
-              生日
-              <input type="date" id="birthdayDate" required>
-            </label>
-            <label>
-              备注
-              <input type="text" id="birthdayNote" placeholder="喜欢的礼物 / 关系 / 提醒">
-            </label>
-            <button type="submit">添加提醒</button>
-          </form>
-          <div id="birthdayList" class="entry-list"></div>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <template id="emptyStateTemplate">
-    <div class="empty-state">还没有内容，先添加第一条。</div>
-  </template>
+    </section>
+  </main>
 
   <script src="app.js"></script>
 </body>
